@@ -13,7 +13,7 @@ export default async function Home() {
       <HeroSection />
       <HeroTwo />
       <ShortSec
-        title="Top Picks For You"
+        title="Top Picks for You"
         description="find a bright ideal to suit your taste with our great selection of suspension, floor and table lights"
         cardData={featuredData}
       />
