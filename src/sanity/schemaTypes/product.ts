@@ -63,6 +63,34 @@ export const product = defineType({
       description: 'Average customer rating for the product',
       validation: (Rule) => Rule.min(0).max(5),
     }),
+    defineField({
+      name: 'discountPercentage',
+      title: 'Discount Percentage',
+      type: 'number',
+      description: 'Discount percentage on the product',
+      validation: (Rule) => Rule.min(0).max(100),
+    }),
+    defineField({
+      name: 'category',
+      title: 'Category',
+      type: 'string',
+      description: 'Category of the product (e.g., chair, table)',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'isFeaturedProduct',
+      title: 'Is Featured Product',
+      type: 'boolean',
+      description: 'Indicates if the product is a featured product',
+      initialValue: false,
+    }),
+    defineField({
+      name: 'stockLevel',
+      title: 'Stock Level',
+      type: 'number',
+      description: 'Number of items available in stock',
+      validation: (Rule) => Rule.min(0),
+    }),
   ],
 
   preview: {
@@ -80,5 +108,5 @@ export const product = defineType({
         media, // Display the product image as the thumbnail
       };
     },
-  }
+  },
 });
