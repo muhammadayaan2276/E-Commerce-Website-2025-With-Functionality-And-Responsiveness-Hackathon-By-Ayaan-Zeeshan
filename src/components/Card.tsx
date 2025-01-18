@@ -6,9 +6,21 @@ import { CardData } from "@/utils/types";
 import { FaHeart } from "react-icons/fa";
 import { BsCartPlus } from "react-icons/bs";
 import Link from "next/link";
+import {useCart,CartItem} from "@/context/CartContext"
 
 export default function Card({ _id, imageUrl, name, price }: CardData) {
   const [wishlist, setWishlist] = useState(false);
+  const {addToCart} = useCart();
+  const handleAddToCart = () => {
+    addToCart({
+      id: _id,
+      name: name,
+      price: price,
+      image: imageUrl,
+      quantity: 1,
+  }
+    );
+  }
 
   const handleWishlist = () => {
     setWishlist(!wishlist);
@@ -49,6 +61,7 @@ export default function Card({ _id, imageUrl, name, price }: CardData) {
           
         </Link>
         <button
+          onClick={handleAddToCart}
           className="mt-3 py-2 px-4 bg-lightyellow text-black font-medium text-sm rounded hover:bg-darkyellow focus:outline-none focus:ring focus:ring-yellow-300 transition duration-200 flex items-center gap-2 justify-center"
         >
           <BsCartPlus />
