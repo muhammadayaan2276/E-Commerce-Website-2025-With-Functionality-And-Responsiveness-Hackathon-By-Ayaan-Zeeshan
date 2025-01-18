@@ -1,6 +1,6 @@
 import Card from "@/components/Card";
 
-import { CardData } from "@/utils/types";
+
 
 
 export interface Sectiondata {
