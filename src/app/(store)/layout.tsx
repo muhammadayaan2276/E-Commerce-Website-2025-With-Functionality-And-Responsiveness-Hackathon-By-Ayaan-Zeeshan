@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import { CartProvider } from "@/context/CartProvider";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import { SanityLive } from "@/sanity/lib/live";
 
 // Import the Poppins font
 const poppins = Poppins({
@@ -38,6 +39,7 @@ export default function RootLayout({
           {/* Footer */}
           <Footer />
         </CartProvider>
+        <SanityLive/>
       </body>
     </html>
   );
