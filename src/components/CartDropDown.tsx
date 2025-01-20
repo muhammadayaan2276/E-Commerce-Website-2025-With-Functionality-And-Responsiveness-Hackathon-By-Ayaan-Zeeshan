@@ -14,7 +14,7 @@ export default function CartDropdown() {
   );
 
   return (
-    <div className="bg-white p-2 mr-5 shadow-lg rounded-lg w-96">
+    <div className="bg-white p-4 shadow-lg rounded-lg w-full max-w-md mx-auto ">
       {/* Header */}
       <div className="flex items-center justify-between border-b pb-4">
         <h2 className="text-lg font-semibold">Shopping Cart</h2>
@@ -27,7 +27,7 @@ export default function CartDropdown() {
           items.map((item) => (
             <div key={item.id} className="flex gap-4 border-b pb-4 mb-4">
               {/* Product Image */}
-              <div className="relative h-20 w-20">
+              <div className="relative h-16 w-16 sm:h-20 sm:w-20">
                 <Image
                   src={item.image}
                   alt={item.name}
@@ -37,24 +37,26 @@ export default function CartDropdown() {
               </div>
 
               {/* Product Details */}
-              <div className="flex flex-1 flex-col justify-between pr-5">
+              <div className="flex flex-1 flex-col justify-between">
                 <div className="flex justify-between">
-                  <div>
+                  <div className="flex-1">
                     <h3 className="text-sm font-medium">{item.name}</h3>
-                    <p className="text-sm text-darkyellow">Rs. {item.price}</p>
+                    <p className="text-xs sm:text-sm text-darkyellow">
+                      Rs. {item.price}
+                    </p>
                   </div>
                   <button
                     onClick={() => removeFromCart(item.id)}
-                    className="text-sm text-red-500"
+                    className="text-xs sm:text-sm text-red-500"
                   >
                     &times;
                   </button>
                 </div>
 
                 {/* Quantity Controls */}
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 mt-2">
                   <button
-                    className="h-6 w-6 border"
+                    className="h-6 w-6 border flex items-center justify-center"
                     onClick={() =>
                       updateQty(item.id, Math.max(1, item.quantity - 1))
                     }
@@ -63,7 +65,7 @@ export default function CartDropdown() {
                   </button>
                   <span className="text-sm">{item.quantity}</span>
                   <button
-                    className="h-6 w-6 border"
+                    className="h-6 w-6 border flex items-center justify-center"
                     onClick={() => updateQty(item.id, item.quantity + 1)}
                   >
                     +
@@ -79,20 +81,22 @@ export default function CartDropdown() {
 
       {/* Cart Total */}
       <div className="space-y-4 border-t pt-4">
-        <div className="flex justify-between text-sm">
+        <div className="flex justify-between text-sm sm:text-base">
           <span>Subtotal</span>
-          <span className="text-darkyellow">Rs. {subtotal.toLocaleString()}</span>
+          <span className="text-darkyellow">
+            Rs. {subtotal.toLocaleString()}
+          </span>
         </div>
         <div className="grid gap-2">
           <Link
             href="/cart"
-            className="block border text-center px-4 py-2 text-sm bg-lightyellow"
+            className="block text-center px-4 py-2 text-sm sm:text-base border bg-lightyellow"
           >
             View Cart
           </Link>
           <Link
             href="/checkout"
-            className="block border text-center px-4 py-2 text-sm bg-darkyellow text-white"
+            className="block text-center px-4 py-2 text-sm sm:text-base border bg-darkyellow text-white"
           >
             Checkout
           </Link>

@@ -72,7 +72,7 @@ export default function Navbar() {
             </SheetTrigger>
 
             {/* Sheet Content */}
-            <SheetContent className="p-4">
+            <SheetContent className="">
                 <CartDropDown/>
             </SheetContent>
           </Sheet>

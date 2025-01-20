@@ -6,14 +6,18 @@ interface SecData {
 // utils/secData.ts
  interface Product {
     _id: string;
-    // _type: string;
-    imageUrl:string
-    sizes: string[];
-    description: string;
     name: string;
+    description: string;
     price: number;
     tags: string[];
+    sizes: string[];
+    imageUrl:string
     rating: number;
+    discountpercentage?:number;
+    category?:string;
+    isFeaturedProduct?:boolean;
+    stockLevel?:number
+    // _type: string;
 }
 
 interface CardData {
@@ -22,6 +26,8 @@ interface CardData {
     name: string;
     price: number;
     rating: number;
+    stocklevel:number;
+    isFeaturedProduct?:boolean;
 }
   
   
