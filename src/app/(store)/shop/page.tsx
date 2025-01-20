@@ -1,31 +1,85 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable */
-// @ts-nocheck
-
+"use client"
+import { useEffect, useState } from "react";
 import BreadCrumb from "@/components/BreadCrumb";
 import Service from "@/components/Service";
 import Card from "@/components/Card";
-import Link from "next/link";
 import Filter from "@/components/Filter";
-import { getAllProducts } from "@/sanity/queries/FetchProduct";
 import { CardData } from "@/utils/types";
 
-export default async function Shop() {
-  const data: CardData[] = await getAllProducts(); // Add type here for data
-  console.log(data);
-  
+export default function Shop() {
+  const [data, setData] = useState<CardData[]>([]);
+  const [filteredData, setFilteredData] = useState<CardData[]>([]);
+  const [itemsPerPage, setItemsPerPage] = useState(16);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [sortBy, setSortBy] = useState("default");
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const response = await fetch("/api/product");
+      const products:CardData[] = await response.json();
+      setData(products);
+      setFilteredData(products);
+      
+    };
+
+    fetchProducts();
+  }, []);
+
+  // Handle Category Filter
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+    filterProducts(category, itemsPerPage, sortBy);
+  };
+
+  // Handle Items per page
+  const handleItemsPerPageChange = (items: number) => {
+    setItemsPerPage(items);
+    filterProducts(selectedCategory, items, sortBy);
+  };
+
+  // Handle Sorting
+  const handleSortChange = (sortBy: string) => {
+    setSortBy(sortBy);
+    filterProducts(selectedCategory, itemsPerPage, sortBy);
+  };
+
+  const filterProducts = (category: string, itemsPerPage: number, sortBy: string) => {
+    let filtered = [...data];
+
+    // Filter by category
+    if (category) {
+      filtered = filtered.filter(product => product.category === category);
+    }
+
+    // Sort the data
+    if (sortBy === "price-low-to-high") {
+      filtered.sort((a, b) => a.price - b.price);
+    } else if (sortBy === "price-high-to-low") {
+      filtered.sort((a, b) => b.price - a.price);
+    }
+
+    // Limit items to user-specified number
+    filtered = filtered.slice(0, itemsPerPage);
+
+    setFilteredData(filtered);
+  };
+
   return (
     <div>
       <BreadCrumb title="Shop" url="shop" />
       
-      <Filter />
+      <Filter
+        onCategoryChange={handleCategoryChange}
+        onItemsPerPageChange={handleItemsPerPageChange}
+        onSortChange={handleSortChange}
+        FilteredData={filteredData}
+      />
       <div className="flex justify-center items-center mx-auto px-4 sm:px-6 md:px-16">
         <div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
-            {data.map((cardData) => (
+            {filteredData.map((cardData) => (
               <div key={cardData._id}>
-                 <Card {...cardData} />
-              
+                <Card {...cardData} />
               </div>
             ))}
           </div>

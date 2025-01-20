@@ -16,7 +16,6 @@ export default function Card({
   stockLevel,
 }: CardData) {
 
-  console.log("CardData:",_id,name,price,stockLevel);
   const [wishlist, setWishlist] = useState(false);
   const { addToCart } = useCart();
   const handleAddToCart = () => {

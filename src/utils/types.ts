@@ -28,6 +28,7 @@ interface CardData {
     rating: number;
     stockLevel:number;
     isFeaturedProduct?:boolean;
+    category?:string;
 }
   
   
