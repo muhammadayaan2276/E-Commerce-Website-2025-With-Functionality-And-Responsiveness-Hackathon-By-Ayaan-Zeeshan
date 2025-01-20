@@ -1,4 +1,5 @@
 import Card from "@/components/Card";
+import { CardData } from "@/utils/types";
 
 
 
@@ -6,7 +7,7 @@ import Card from "@/components/Card";
 export interface Sectiondata {
     title:string,
     description?:string,
-    cardData:any[],
+    cardData:CardData[],
 
 }
 
@@ -19,7 +20,7 @@ export default  function ShortSec(data:Sectiondata) {
         <h1 className="text-4xl font-semibold">{data.title}</h1>
         {data.description && <p className="text-sm text-gray-600">{data.description}</p>}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
-          {data.cardData.map((cardData: any, index:number) => (
+          {data.cardData.map((cardData: CardData, index:number) => (
           
             <Card key={index} {...cardData} />
           

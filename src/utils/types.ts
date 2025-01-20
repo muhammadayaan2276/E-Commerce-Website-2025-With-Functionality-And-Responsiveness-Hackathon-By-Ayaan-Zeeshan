@@ -26,7 +26,7 @@ interface CardData {
     name: string;
     price: number;
     rating: number;
-    stocklevel:number;
+    stockLevel:number;
     isFeaturedProduct?:boolean;
 }
   
