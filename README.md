@@ -12,6 +12,7 @@ Furniro is a modern and responsive e-commerce furniture web app designed to prov
 - [Benefits](#benefits)
 - [Contributing](#contributing)
 - [License](#license)
+- [Challenges](#chalenges)
 
 ---
 
@@ -55,6 +56,18 @@ Furniro employs a modular and scalable architecture:
 - **Customizable**: Built with modern tools, allowing for easy updates and styling.
 - **Responsive**: Works seamlessly across devices.
 - **Integrated**: Combines third-party APIs and a CMS for a robust backend.
+
+## Chalenges
+
+My Hackathon Experience: Challenges, Learnings, and Suggestions
+Challenges:
+Participating in the hackathon was both exciting and demanding. One of the key challenges was managing time effectively within the strict deadlines while ensuring high-quality work. Debugging complex issues during the integration of APIs and building dynamic features for the Furniro app added to the pressure. Additionally, ensuring a seamless user interface and addressing performance bottlenecks required a lot of focus and quick problem-solving.
+
+Learnings:
+The experience was a significant learning opportunity. I improved my skills in working with APIs, creating responsive designs using Next.js and Tailwind CSS, and implementing efficient state management for "Add to Cart" functionality. Collaborating with teammates enhanced my understanding of teamwork and communication in a fast-paced environment. I also learned to prioritize tasks and test applications thoroughly under time constraints.
+
+Suggestions:
+To improve future hackathons, it would be helpful to have more structured mentoring sessions during the event to resolve blockers quickly. Additionally, allocating dedicated time for user testing and feedback could further refine the projects. Lastly, having pre-hackathon workshops or resource materials on the required tech stack would help participants be better prepared.
 
 ## Contributing
 We welcome contributions! Follow these steps:
