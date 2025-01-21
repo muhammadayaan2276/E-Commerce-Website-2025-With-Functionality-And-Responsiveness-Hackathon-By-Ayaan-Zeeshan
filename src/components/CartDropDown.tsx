@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useCart } from "@/context/CartContext";
+import { CartItem, useCart } from "@/context/CartContext";
 
 export default function CartDropdown() {
   const { items, updateQty, removeFromCart } = useCart();
@@ -12,6 +12,8 @@ export default function CartDropdown() {
     (total, item) => total + item.price * item.quantity,
     0
   );
+
+  
 
   return (
     <div className="bg-white p-4 shadow-lg rounded-lg w-full max-w-md mx-auto ">
@@ -24,7 +26,9 @@ export default function CartDropdown() {
       {/* Cart Items */}
       <div className="py-4 max-h-80 overflow-y-auto">
         {items.length > 0 ? (
-          items.map((item) => (
+          items.map((item:CartItem) => (
+            console.log("stock:",item.stock),
+            
             <div key={item.id} className="flex gap-4 border-b pb-4 mb-4">
               {/* Product Image */}
               <div className="relative h-16 w-16 sm:h-20 sm:w-20">

@@ -8,7 +8,7 @@ import { useCart } from "@/context/CartContext"; // Import the custom hook
 
 export default function Cart() {
   const { items, updateQty, removeFromCart } = useCart(); // Use items, updateQty, and removeFromCart from context
-
+  console.log(items)
   // Calculate Subtotal and Total
   const subtotal = items.reduce(
     (total, item) => total + item.price * item.quantity,

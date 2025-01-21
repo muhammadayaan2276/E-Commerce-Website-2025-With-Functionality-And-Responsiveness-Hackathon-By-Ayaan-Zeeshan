@@ -7,7 +7,7 @@ export interface CartItem {
     price: number;
     image: string;
     quantity: number;
-    stockLevel: number
+    stock: number
 }
 
 export interface CartContextType {

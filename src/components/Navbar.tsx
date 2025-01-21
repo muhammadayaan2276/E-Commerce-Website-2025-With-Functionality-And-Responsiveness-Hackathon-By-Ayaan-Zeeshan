@@ -3,12 +3,13 @@
 import { useState, useEffect } from "react";
 
 import { BsPersonExclamation } from "react-icons/bs";
-import { FiSearch } from "react-icons/fi";
+// import { FiSearch } from "react-icons/fi";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoCartOutline } from "react-icons/io5";
 import { RxHamburgerMenu } from "react-icons/rx";
 import Link from "next/link";
 import Image from "next/image";
+import {SearchCommand} from "@/components/SearchBar"
 import {
   Sheet,
   SheetContent,
@@ -61,7 +62,8 @@ export default function Navbar() {
             <BsPersonExclamation size={20} />
           </Link>
           <Link href="/" className="text-gray-800 hover:text-black">
-            <FiSearch size={20} />
+            {/* <FiSearch size={20} /> */}
+            <SearchCommand/>
           </Link>
           <Link href="/shop" className="text-gray-800 hover:text-black">
             <IoMdHeartEmpty size={20} />
@@ -95,7 +97,8 @@ export default function Navbar() {
                   <BsPersonExclamation size={24} />
                 </Link>
                 <Link href="/" className="text-gray-800 hover:text-black">
-                  <FiSearch size={24} />
+                  {/* <FiSearch size={24} /> */}
+                  <SearchCommand />
                 </Link>
                 <Link
                   href="/shop"
