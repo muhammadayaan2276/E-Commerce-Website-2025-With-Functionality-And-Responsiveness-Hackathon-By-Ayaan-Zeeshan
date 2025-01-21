@@ -30,8 +30,8 @@ export const CartProvider = ({
         const newQuantity = existingItem.quantity + item.quantity;
 
         // Check if the updated quantity exceeds the stock level
-        if (newQuantity > existingItem.stockLevel) {
-          toast.error(`Cannot add more than ${existingItem.stockLevel} items of this product.`, {
+        if (newQuantity > existingItem.stock) {
+          toast.error(`Cannot add more than ${existingItem.stock} items of this product.`, {
             autoClose: 1000,
           });
           return prevItems;
@@ -51,8 +51,8 @@ export const CartProvider = ({
       }
 
       // Check if the quantity exceeds stock before adding to the cart
-      if (item.quantity > item.stockLevel) {
-        toast.error(`Cannot add more than ${item.stockLevel} items of this product.`, {
+      if (item.quantity > item.stock) {
+        toast.error(`Cannot add more than ${item.stock} items of this product.`, {
           autoClose: 1000,
         });
         return prevItems;
@@ -84,8 +84,8 @@ export const CartProvider = ({
     setItems((prevItems) => {
       const item = prevItems.find((item) => item.id === id);
 
-      if (item && quantity > item.stockLevel) {
-        toast.error(`Cannot exceed ${item.stockLevel} items of this product.`, {
+      if (item && quantity > item.stock) {
+        toast.error(`Cannot exceed ${item.stock} items of this product.`, {
           autoClose: 1000,
         });
         return prevItems;
