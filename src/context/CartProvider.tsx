@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { CartContext, CartItem, CartContextType } from "./CartContext";
 import { toast } from "react-toastify";
 
@@ -8,7 +9,19 @@ export const CartProvider = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  const [items, setItems] = useState<CartItem[]>(() => []);
+  const [items, setItems] = useState<CartItem[]>(() => {
+    // Load cart data from localStorage on initial render
+    if (typeof window !== "undefined") {
+      const savedCart = localStorage.getItem("cartItems");
+      return savedCart ? JSON.parse(savedCart) : [];
+    }
+    return [];
+  });
+
+  useEffect(() => {
+    // Save cart data to localStorage whenever it changes
+    localStorage.setItem("cartItems", JSON.stringify(items));
+  }, [items]);
 
   const addToCart = (item: CartItem) => {
     setItems((prevItems) => {
@@ -18,9 +31,10 @@ export const CartProvider = ({
 
         // Check if the updated quantity exceeds the stock level
         if (newQuantity > existingItem.stockLevel) {
-          toast.error(`Cannot add more than ${existingItem.stockLevel} items of this product.`, {
-            autoClose: 1000,
-          });
+          toast.error(
+            `Cannot add more than ${existingItem.stockLevel} items of this product.`,
+            { autoClose: 1000 }
+          );
           return prevItems;
         }
 
@@ -39,9 +53,10 @@ export const CartProvider = ({
 
       // Check if the quantity exceeds stock before adding to the cart
       if (item.quantity > item.stockLevel) {
-        toast.error(`Cannot add more than ${item.stockLevel} items of this product.`, {
-          autoClose: 1000,
-        });
+        toast.error(
+          `Cannot add more than ${item.stockLevel} items of this product.`,
+          { autoClose: 1000 }
+        );
         return prevItems;
       }
 
@@ -72,9 +87,10 @@ export const CartProvider = ({
       const item = prevItems.find((item) => item.id === id);
 
       if (item && quantity > item.stockLevel) {
-        toast.error(`Cannot exceed ${item.stockLevel} items of this product.`, {
-          autoClose: 1000,
-        });
+        toast.error(
+          `Cannot exceed ${item.stockLevel} items of this product.`,
+          { autoClose: 1000 }
+        );
         return prevItems;
       }
 
