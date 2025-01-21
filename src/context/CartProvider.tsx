@@ -24,11 +24,12 @@ export const CartProvider = ({
   }, [items]);
 
   const addToCart = (item: CartItem) => {
+    const adjustedQuantity = item.quantity > 0 ? item.quantity : 1;  // Default to 1 if quantity is 0 or less
     setItems((prevItems) => {
       const existingItem = prevItems.find((i) => i.id === item.id);
       if (existingItem) {
-        const newQuantity = existingItem.quantity + item.quantity;
-
+        const newQuantity = existingItem.quantity + adjustedQuantity;
+  
         // Check if the updated quantity exceeds the stock level
         if (newQuantity > existingItem.stock) {
           toast.error(`Cannot add more than ${existingItem.stock} items of this product.`, {
@@ -36,39 +37,40 @@ export const CartProvider = ({
           });
           return prevItems;
         }
-
+  
         if (newQuantity > 5) {
           toast.error("Cannot add more than 5 items of the same product.", {
             autoClose: 1000,
           });
           return prevItems;
         }
-
+  
         toast.info("Product Quantity Updated!", { autoClose: 500 });
         return prevItems.map((i) =>
           i.id === item.id ? { ...i, quantity: newQuantity } : i
         );
       }
-
+  
       // Check if the quantity exceeds stock before adding to the cart
-      if (item.quantity > item.stock) {
+      if (adjustedQuantity > item.stock) {
         toast.error(`Cannot add more than ${item.stock} items of this product.`, {
           autoClose: 1000,
         });
         return prevItems;
       }
-
-      if (item.quantity > 5) {
+  
+      if (adjustedQuantity > 5) {
         toast.error("Cannot add more than 5 items of the same product.", {
           autoClose: 1000,
         });
         return prevItems;
       }
-
+  
       toast.success("Product Added to Cart!", { autoClose: 500 });
-      return [...prevItems, item];
+      return [...prevItems, { ...item, quantity: adjustedQuantity }];
     });
   };
+  
 
   const removeFromCart = (id: string) => {
     setItems((prevItems) => prevItems.filter((item) => item.id !== id));
@@ -81,29 +83,31 @@ export const CartProvider = ({
   };
 
   const updateQty = (id: string, quantity: number) => {
+    const adjustedQuantity = quantity > 0 ? quantity : 1;  // Default to 1 if quantity is 0 or less
     setItems((prevItems) => {
       const item = prevItems.find((item) => item.id === id);
-
-      if (item && quantity > item.stock) {
+  
+      if (item && adjustedQuantity > item.stock) {
         toast.error(`Cannot exceed ${item.stock} items of this product.`, {
           autoClose: 1000,
         });
         return prevItems;
       }
-
-      if (quantity > 5) {
+  
+      if (adjustedQuantity > 5) {
         toast.error("Cannot have more than 5 items of the same product.", {
           autoClose: 1000,
         });
         return prevItems;
       }
-
+  
       toast.info("Product Quantity Updated!", { autoClose: 500 });
       return prevItems.map((item) =>
-        item.id === id ? { ...item, quantity } : item
+        item.id === id ? { ...item, quantity: adjustedQuantity } : item
       );
     });
   };
+  
 
   const contextValue: CartContextType = {
     items,

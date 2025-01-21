@@ -2,12 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import BreadCrumb from "@/components/BreadCrumb";
 import Service from "@/components/Service";
-import { CiInstagram } from "react-icons/ci";
-import { CiLinkedin } from "react-icons/ci";
-import { CiFacebook } from "react-icons/ci";
+import { CiInstagram,CiLinkedin,CiFacebook } from "react-icons/ci";
 import ShortSec from "@/components/ShortSec";
 import { getProductById } from "@/sanity/queries/FetchProduct";
 import { getFeaturedProduct } from "@/sanity/queries/FetchProduct";
+
 export default async function ProductDetail({
   params,
 }: {
