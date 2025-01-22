@@ -2,10 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import BreadCrumb from "@/components/BreadCrumb";
 import Service from "@/components/Service";
-import { CiInstagram,CiLinkedin,CiFacebook } from "react-icons/ci";
+import { CiInstagram, CiLinkedin, CiFacebook } from "react-icons/ci";
 import ShortSec from "@/components/ShortSec";
 import { getProductById } from "@/sanity/queries/FetchProduct";
 import { getFeaturedProduct } from "@/sanity/queries/FetchProduct";
+import AddTocartDynamicPage from "@/components/AddToCartDynamicPage";
+import { CartItem } from "@/context/CartContext";
+import { Product } from "@/utils/types";
 
 export default async function ProductDetail({
   params,
@@ -113,7 +116,18 @@ export default async function ProductDetail({
             </div>
 
             {/* Quantity and Add to Cart */}
-            <div className="flex items-center gap-4">
+            {product &&
+            <AddTocartDynamicPage 
+            product={{
+              id: product._id,
+              name: product.name,
+              image: product.imageUrl,
+              price: product.price,
+              quantity: 1, // Default quantity
+              stock: product.stockLevel || 0, // Ensure stock is handled
+            }}/>
+            }
+            {/* <div className="flex items-center gap-4">
               <div className="flex items-center border rounded-lg">
                 <button className="px-4 py-2 border-r">-</button>
                 <input
@@ -127,21 +141,21 @@ export default async function ProductDetail({
               <button className="px-6 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700">
                 Add To Cart
               </button>
-            </div>
+            </div> */}
 
             {/* Product Metadata */}
             <div className="space-y-2 pt-4 border-t text-sm text-gray-600">
               <div className="flex justify-between">
                 <span>SKU</span>
-                <span>SS001</span>
+                <span>{product?._id}</span>
               </div>
               <div className="flex justify-between">
                 <span>Category</span>
-                <span>Sofas</span>
+                <span>{product?.category}</span>
               </div>
               <div className="flex justify-between">
                 <span>Tags</span>
-                <span>Sofa, Chair, Home, Shop</span>
+                <span>{product?.tags}</span>
               </div>
               <div className="flex justify-between">
                 <span>Share</span>
@@ -211,7 +225,7 @@ export default async function ProductDetail({
         title="More Products"
         description="find a bright ideal to suit your taste with our great selection of suspension, floor and table lights"
         cardData={featuredData}
-     />
+      />
       <Service />
     </div>
   );
