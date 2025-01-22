@@ -15,11 +15,14 @@ const poppins = Poppins({
   display: "swap", // Ensures the text uses fallback fonts until Poppins loads
 });
 
-export const metadata: Metadata = {
-  title: "UI-UX Hackathon",
-  description: "Hackathon.",
+export const metadata:Metadata = {
+  title: {
+    default:"Furniro",
+    template:"%s | Furniro ",
+  },
+  description: "Developed by Ahmed Noorani",
+  icons:"/logo.png"
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{
