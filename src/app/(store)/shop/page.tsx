@@ -16,10 +16,10 @@ export default function Shop() {
   useEffect(() => {
     const fetchProducts = async () => {
       const response = await fetch("/api/product");
-      const products:CardData[] = await response.json();
+      const products: CardData[] = await response.json();
       setData(products);
       setFilteredData(products);
-      
+
     };
 
     fetchProducts();
@@ -67,22 +67,21 @@ export default function Shop() {
   return (
     <div>
       <BreadCrumb title="Shop" url="shop" />
-      
+
       <Filter
         onCategoryChange={handleCategoryChange}
         onItemsPerPageChange={handleItemsPerPageChange}
         onSortChange={handleSortChange}
         FilteredData={filteredData}
       />
-      <div className="flex justify-center items-center mx-auto px-4 sm:px-6 md:px-16">
-        <div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
-            {filteredData.map((cardData) => (
-              <div key={cardData._id}>
-                <Card {...cardData} />
-              </div>
-            ))}
-          </div>
+      <div className="flex w-full justify-center items-center px-4 sm:px-6 md:px-12">
+
+        <div className="grid w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
+          {filteredData.map((cardData) => (
+            <Card key={cardData._id} {...cardData} />
+
+          ))}
+
         </div>
       </div>
       <Service />

@@ -24,8 +24,8 @@ export default async function ProductDetail({
   return (
     <div>
       <BreadCrumb title="Product Page" url="/" />
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 items-start">
+      <div className=" mx-auto px-4 py-8">
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-8 items-start">
           {/* Product Images */}
           <div className="space-y-4">
             {/* Main Image */}
