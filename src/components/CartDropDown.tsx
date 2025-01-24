@@ -2,80 +2,76 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { CartItem, useCart } from "@/context/CartContext";
+import { useCart } from "@/context/CartContext";
+import { roundOff } from "@/helper/roundoff";
+import { Button } from "@/components/ui/button";
 
 export default function CartDropdown() {
   const { items, updateQty, removeFromCart } = useCart();
 
-  // Calculate the subtotal
-  const subtotal = items.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
-
-  
+  const calculateSubtotal = () => {
+    return items.reduce(
+      (total, item) => total + Number(roundOff(item.price)) * item.quantity,
+      0
+    );
+  };
 
   return (
-    <div className="bg-white p-4 shadow-lg rounded-lg w-full max-w-md mx-auto ">
-      {/* Header */}
-      <div className="flex items-center justify-between border-b pb-4">
-        <h2 className="text-lg font-semibold">Shopping Cart</h2>
-        <button className="text-lg font-bold">&times;</button>
-      </div>
-
-      {/* Cart Items */}
-      <div className="py-4 max-h-80 overflow-y-auto">
+    <div className="flex flex-col h-full p-4 text-gray-800 bg-white">
+      {/* Items Section */}
+      <div className="flex-grow overflow-y-auto">
         {items.length > 0 ? (
-          items.map((item:CartItem) => (
-            console.log("stock:",item.stock),
-            
-            <div key={item.id} className="flex gap-4 border-b pb-4 mb-4">
+          items.map((item) => (
+            <div
+              key={item.id}
+              className="flex flex-col sm:flex-row items-center gap-4 py-4 border-b border-gray-200"
+            >
               {/* Product Image */}
-              <div className="relative h-16 w-16 sm:h-20 sm:w-20">
+              <div className="w-full h-full sm:w-20 sm:h-20 sm:flex-top flex justify-center relative">
                 <Image
                   src={item.image}
+                  width={80}
+                  height={80}
                   alt={item.name}
-                  fill
-                  className="object-cover rounded bg-lightyellow"
+                  className="object-contain rounded bg-[#fbebb5] p-1"
                 />
+                 <button
+                onClick={() => removeFromCart(item.id)}
+                className="text-red-500 text-lg font-bold absolute top-0 right-0"
+              >
+                &times;
+              </button>
               </div>
 
               {/* Product Details */}
-              <div className="flex flex-1 flex-col justify-between">
-                <div className="flex justify-between">
-                  <div className="flex-1">
-                    <h3 className="text-sm font-medium">{item.name}</h3>
-                    <p className="text-xs sm:text-sm text-darkyellow">
-                      Rs. {item.price}
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => removeFromCart(item.id)}
-                    className="text-xs sm:text-sm text-red-500"
-                  >
-                    &times;
-                  </button>
-                </div>
-
-                {/* Quantity Controls */}
-                <div className="flex items-center gap-2 mt-2">
-                  <button
-                    className="h-6 w-6 border flex items-center justify-center"
-                    onClick={() =>
-                      updateQty(item.id, Math.max(1, item.quantity - 1))
-                    }
-                  >
-                    -
-                  </button>
-                  <span className="text-sm">{item.quantity}</span>
-                  <button
-                    className="h-6 w-6 border flex items-center justify-center"
+              <div className="flex flex-1 flex-col gap-1 text-sm sm:text-base">
+                <p className="font-medium">{item.name}</p>
+                <p>
+                  {item.quantity} x{" "}
+                  <span className="text-[#B88E2F] font-semibold">
+                    ${item.price}
+                  </span>
+                </p>
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="ghost"
+                    className="px-2 text-black hover:bg-[#f0d786] hover:text-black"
                     onClick={() => updateQty(item.id, item.quantity + 1)}
                   >
                     +
-                  </button>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    className="px-2 text-black hover:bg-[#f0d786] hover:text-black"
+                    onClick={() => updateQty(item.id, Math.max(1, item.quantity - 1))}
+                  >
+                    -
+                  </Button>
                 </div>
               </div>
+
+              {/* Remove Button */}
+             
             </div>
           ))
         ) : (
@@ -83,29 +79,32 @@ export default function CartDropdown() {
         )}
       </div>
 
-      {/* Cart Total */}
-      <div className="space-y-4 border-t pt-4">
-        <div className="flex justify-between text-sm sm:text-base">
-          <span>Subtotal</span>
-          <span className="text-darkyellow">
-            Rs. {subtotal.toLocaleString()}
-          </span>
+      {/* Summary & Buttons */}
+      {items.length > 0 && (
+        <div className="mt-4">
+          {/* Cart Summary */}
+          <div className="flex justify-between items-center mb-4">
+            <p className="text-md font-medium">Total</p>
+            <p className="text-md font-semibold text-[#B88E2F]">
+              $ {calculateSubtotal()}.00
+            </p>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Link href="/cart">
+              <button className="w-full sm:w-auto px-6 py-3 text-sm border border-black rounded-full hover:bg-gray-100">
+                View Cart
+              </button>
+            </Link>
+            <Link href="/checkout">
+              <button className="w-full sm:w-auto px-6 py-3 text-sm bg-black text-white rounded-full hover:bg-gray-900">
+                Checkout
+              </button>
+            </Link>
+          </div>
         </div>
-        <div className="grid gap-2">
-          <Link
-            href="/cart"
-            className="block text-center px-4 py-2 text-sm sm:text-base border bg-lightyellow"
-          >
-            View Cart
-          </Link>
-          <Link
-            href="/checkout"
-            className="block text-center px-4 py-2 text-sm sm:text-base border bg-darkyellow text-white"
-          >
-            Checkout
-          </Link>
-        </div>
-      </div>
+      )}
     </div>
   );
 }

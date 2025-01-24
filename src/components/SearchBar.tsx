@@ -71,9 +71,8 @@ export function SearchCommand() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="bg-white hover:bg-[#f0d786] p-[6px] rounded"
       >
-        <Search size={28} className="text-black" />
+        <Search size={20} className="text-black" />
       </button>
 
       <CommandDialog open={open} onOpenChange={setOpen}>
