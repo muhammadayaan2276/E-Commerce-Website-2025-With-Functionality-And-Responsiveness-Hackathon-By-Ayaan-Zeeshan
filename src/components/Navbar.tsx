@@ -81,7 +81,7 @@ export default function Navbar() {
           {/* Hamburger Menu for Mobile */}
           <Sheet>
             <SheetTrigger>
-              <RxHamburgerMenu size={20} className="text-gray-800 hover:text-black" />
+              <RxHamburgerMenu size={20} className="text-gray-800 hover:text-black md:hidden" />
             </SheetTrigger>
             <SheetContent className="p-4">
               <nav className="space-y-8 text-lg mt-6">
