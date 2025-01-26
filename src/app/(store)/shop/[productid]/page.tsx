@@ -103,7 +103,7 @@ export default async function ProductDetail({
               </div>
             </div>
 
-            {/* Color Selection */}
+            {/* Color Selection
             <div>
               <span className="block text-sm font-medium text-gray-700">
                 Color
@@ -113,7 +113,7 @@ export default async function ProductDetail({
                 <button className="w-6 h-6 rounded-full bg-black" />
                 <button className="w-6 h-6 rounded-full bg-yellow-700" />
               </div>
-            </div>
+            </div> */}
 
             {/* Quantity and Add to Cart */}
             {product &&
@@ -220,6 +220,7 @@ export default async function ProductDetail({
           </div>
         </div>
       </div>
+      
 
       <ShortSec
         title="More Products"

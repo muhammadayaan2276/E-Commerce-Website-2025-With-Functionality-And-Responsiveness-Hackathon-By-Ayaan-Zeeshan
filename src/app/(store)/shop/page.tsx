@@ -5,6 +5,7 @@ import Service from "@/components/Service";
 import Card from "@/components/Card";
 import Filter from "@/components/Filter";
 import { CardData } from "@/utils/types";
+import Button from "@/components/Button";
 
 export default function Shop() {
   const [data, setData] = useState<CardData[]>([]);
@@ -84,6 +85,12 @@ export default function Shop() {
 
         </div>
       </div>
+      <div className="flex justify-center items-center space-x-4 mt-8">
+              <Button name='1' style="w-10 h-10 bg-[#fbebb5] rounded"/>
+              <Button name='2' style="w-10 h-10 bg-[#fff9e5] hover:bg-[#fbebb5] rounded"/>
+              <Button name='3' style="w-10 h-10 bg-[#fff9e5] hover:bg-[#fbebb5] rounded"/>
+              <Button name='Next' style="w-20 h-10 bg-[#fff9e5] hover:bg-[#fbebb5] rounded"/>
+            </div>
       <Service />
     </div>
   );

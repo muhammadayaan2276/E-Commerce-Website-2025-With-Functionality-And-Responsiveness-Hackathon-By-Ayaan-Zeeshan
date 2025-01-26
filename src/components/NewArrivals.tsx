@@ -9,7 +9,7 @@ export default function NewArrivals(){
             <div className="flex flex-col text-center space-y-8">
                 <p className="text-md">New Arrivals</p>
                 <h2 className="text-4xl font-bold">Asgaard Sofa</h2>
-                <Link href={"/"}><button className="h-[64px] w-64 text-center text-md border-2 border-black">Order Now</button></Link>
+                <Link href={"/shop/c4d3dee1-0693-4a5b-a757-e26218023a98"}><button className="h-[64px] w-64 text-center text-md border-2 border-black">Order Now</button></Link>
             </div>
         </div>
     )

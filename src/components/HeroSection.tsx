@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function HeroSection() {
   return (
@@ -8,8 +9,11 @@ export default function HeroSection() {
         <h1 className="text-4xl md:text-6xl  font-light text-gray-800">
           Rocket Single Seater
         </h1>
-        <p className="text-lg text-gray-600 pt-12"><span className="border-b border-gray-400">Shop Now</span></p>
-
+        <p className="text-lg text-gray-600 pt-12">
+          <Link href="/shop/ea882235-940b-4966-bb05-ccaa3de40028">
+            <span className="border-b border-gray-400">Shop Now</span>
+          </Link>
+        </p>
       </div>
 
       {/* Image Section */}

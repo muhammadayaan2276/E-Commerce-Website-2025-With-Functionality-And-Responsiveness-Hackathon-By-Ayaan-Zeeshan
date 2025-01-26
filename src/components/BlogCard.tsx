@@ -12,7 +12,7 @@ export default function BlogCard (carddata:{image:string}){
             </div>
             <p>Going All In With Milenial Design</p>
             <div className="pt-4">
-            <span className="border-b-2 text-4xl border-black"><Link href={"/"}>Read More</Link></span>
+            <span className="border-b-2 text-4xl border-black"><Link href={"/blog"}>Read More</Link></span>
             </div>
             <div className="flex gap-4">
                 <p className="flex gap-2"><GoClock/> 5 min</p>
