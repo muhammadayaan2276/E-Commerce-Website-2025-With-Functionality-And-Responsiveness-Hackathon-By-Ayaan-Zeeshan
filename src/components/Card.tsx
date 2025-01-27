@@ -7,6 +7,7 @@ import { FaHeart } from "react-icons/fa";
 import { BsCartPlus } from "react-icons/bs";
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
+import { useWishlist } from "@/context/CartContext";
 
 export default function Card({
   _id,
@@ -16,7 +17,10 @@ export default function Card({
   stockLevel,
 }: CardData) {
 
-  const [wishlist, setWishlist] = useState(false);
+  const { items, addToWishlist, removeFromWishlist } = useWishlist();
+  const [wishlist, setWishlist] = useState(
+    items.some((item) => item.id === _id) // Check if the product is already in the wishlist
+  );
   const { addToCart } = useCart();
   const handleAddToCart = () => {
     addToCart({
@@ -30,7 +34,12 @@ export default function Card({
   };
 
   const handleWishlist = () => {
-    setWishlist(!wishlist);
+    if (wishlist) {
+      removeFromWishlist(_id);
+    } else {
+      addToWishlist({ id: _id, name, price, image: imageUrl });
+    }
+    setWishlist(!wishlist); // Toggle the state
   };
 
   return (
@@ -41,17 +50,15 @@ export default function Card({
           <Image
             src={imageUrl}
             alt={name || "Product Image"}
-            className="w-full h-full"
-            sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
-            style={{ objectFit: "contain" }} // Apply objectFit here
-            width={600} // Set the image width
-            height={600} // Set the image height
+            className="w-full h-full p-1 object-cover group-hover:opacity-80 transition-opacity duration-200"
+                      width={600} // Set the image width
+                      height={600} // Set the image height
           />
         </Link>
         <button
           onClick={handleWishlist}
           className="absolute top-3 right-3 p-2 bg-white rounded-full shadow-md hover:bg-red-100 transition duration-200"
-          title="Add to Wishlist"
+          title={wishlist ? "Remove from Wishlist" : "Add to Wishlist"}
         >
           <FaHeart
             className={` ${wishlist ? "text-red-500" : "text-slate-300"}`}

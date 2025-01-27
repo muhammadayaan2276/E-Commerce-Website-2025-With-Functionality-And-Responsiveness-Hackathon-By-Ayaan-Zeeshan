@@ -3,7 +3,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { CartProvider } from "@/context/CartProvider";
+import { CombinedProvider} from "@/context/CartProvider"; 
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { SanityLive } from "@/sanity/lib/live";
@@ -32,7 +32,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${poppins.className} flex flex-col min-h-screen`}>
       <ToastContainer />
-        <CartProvider>
+        <CombinedProvider>
           {/* Navbar */}
           <Navbar />
 
@@ -41,7 +41,7 @@ export default function RootLayout({
 
           {/* Footer */}
           <Footer />
-        </CartProvider>
+        </CombinedProvider>
         <SanityLive/>
       </body>
     </html>

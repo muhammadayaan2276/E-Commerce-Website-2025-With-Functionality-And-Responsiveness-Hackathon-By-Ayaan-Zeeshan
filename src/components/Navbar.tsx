@@ -64,7 +64,7 @@ export default function Navbar() {
           </Link>
 
           {/* Wishlist */}
-          <Link href="/shop" className="text-gray-800 hover:text-black">
+          <Link href="/wishlist" className="text-gray-800 hover:text-black">
             <IoMdHeartEmpty size={20} />
           </Link>
 
