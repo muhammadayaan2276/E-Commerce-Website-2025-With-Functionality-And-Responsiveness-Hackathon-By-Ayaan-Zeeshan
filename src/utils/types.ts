@@ -33,4 +33,4 @@ interface CardData {
   
   
 
-export type {SecData, Product, CardData}
+export type {SecData,  Product, CardData}
