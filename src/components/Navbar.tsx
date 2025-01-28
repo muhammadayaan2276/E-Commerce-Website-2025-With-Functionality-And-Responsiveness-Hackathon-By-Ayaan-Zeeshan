@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { BsPersonExclamation } from "react-icons/bs";
+
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoCartOutline } from "react-icons/io5";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -11,7 +11,11 @@ import { SearchCommand } from "@/components/SearchBar";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import CartDropDown from "@/components/CartDropDown";
 
+import { UserButton, useUser } from "@clerk/nextjs";
+import SignInButtonComponent from "@/components/auth/loginButoon";
+
 export default function Navbar() {
+  const {isSignedIn } = useUser();
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -26,9 +30,7 @@ export default function Navbar() {
   return (
     <header
       className={`z-10 w-full mx-auto px-4 sm:px-6 md:px-16 lg:px-32 fixed text-xl ${
-        isScrolled
-          ? "bg-white/70 backdrop-blur-sm shadow-md"
-          : "bg-transparent"
+        isScrolled ? "bg-white/70 backdrop-blur-sm shadow-md" : "bg-transparent"
       }`}
     >
       <div className="flex items-center justify-between h-16">
@@ -55,13 +57,10 @@ export default function Navbar() {
 
         {/* Right: Icons (visible on all devices) */}
         <div className="flex items-center space-x-5">
+          
+
           {/* Search */}
           <SearchCommand />
-
-          {/* Account */}
-          <Link href="/myaccount" className="text-gray-800 hover:text-black">
-            <BsPersonExclamation size={20} />
-          </Link>
 
           {/* Wishlist */}
           <Link href="/wishlist" className="text-gray-800 hover:text-black">
@@ -71,17 +70,32 @@ export default function Navbar() {
           {/* Cart */}
           <Sheet>
             <SheetTrigger>
-              <IoCartOutline size={20} className="text-gray-800 hover:text-black" />
+              <IoCartOutline
+                size={20}
+                className="text-gray-800 hover:text-black"
+              />
             </SheetTrigger>
             <SheetContent>
               <CartDropDown />
             </SheetContent>
           </Sheet>
 
+          {/* Account */}
+          {!isSignedIn ? (
+            <SignInButtonComponent  />
+          ) : (
+            <div className="flex justify-center items-center gap-2">
+              <UserButton />
+            </div>
+          )}
+
           {/* Hamburger Menu for Mobile */}
           <Sheet>
             <SheetTrigger>
-              <RxHamburgerMenu size={20} className="text-gray-800 hover:text-black md:hidden" />
+              <RxHamburgerMenu
+                size={20}
+                className="text-gray-800 hover:text-black md:hidden"
+              />
             </SheetTrigger>
             <SheetContent className="p-4">
               <nav className="space-y-8 text-lg mt-6">
@@ -94,7 +108,10 @@ export default function Navbar() {
                 <Link href="/blog" className="font-medium text-gray-900 block">
                   Blog
                 </Link>
-                <Link href="/contact" className="font-medium text-gray-900 block">
+                <Link
+                  href="/contact"
+                  className="font-medium text-gray-900 block"
+                >
                   Contact
                 </Link>
               </nav>

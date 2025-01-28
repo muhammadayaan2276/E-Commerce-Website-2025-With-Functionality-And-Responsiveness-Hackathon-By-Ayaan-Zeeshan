@@ -95,7 +95,7 @@ export default async function ProductDetail({
                 {(product?.sizes as []).map((size) => (
                   <button
                     key={size}
-                    className="w-10 h-10 border rounded-lg flex items-center justify-center text-sm hover:bg-gray-100"
+                    className="p-2 border rounded-lg flex items-center justify-center text-sm hover:bg-gray-100"
                   >
                     {size}
                   </button>
@@ -195,29 +195,7 @@ export default async function ProductDetail({
             </p>
           </div>
 
-          {/* Image Section */}
-          <div className="flex flex-col md:flex-row gap-6 mt-12">
-            <div className="flex-1 flex justify-center items-center bg-[#FFF9E5] p-4 rounded-lg shadow-md">
-              <Image
-                className="object-cover rounded-lg"
-                src={`${product?.imageUrl}`}
-                alt="Mayur Sofa"
-                width={300}
-                height={200}
-                priority
-              />
-            </div>
-            <div className="flex-1 flex justify-center items-center bg-[#FFF9E5] p-4 rounded-lg shadow-md">
-              <Image
-                className="object-cover rounded-lg"
-                src={`${product?.imageUrl}`}
-                alt="Mayur Sofa"
-                width={300}
-                height={200}
-                priority
-              />
-            </div>
-          </div>
+        
         </div>
       </div>
       

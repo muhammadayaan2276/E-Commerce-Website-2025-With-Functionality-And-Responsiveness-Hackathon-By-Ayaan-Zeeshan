@@ -7,6 +7,7 @@ import { CombinedProvider} from "@/context/CartProvider";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { SanityLive } from "@/sanity/lib/live";
+import {ClerkProvider} from "@clerk/nextjs"
 
 // Import the Poppins font
 const poppins = Poppins({
@@ -29,6 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <ClerkProvider >
     <html lang="en">
       <body className={`${poppins.className} flex flex-col min-h-screen`}>
       <ToastContainer />
@@ -45,5 +47,6 @@ export default function RootLayout({
         <SanityLive/>
       </body>
     </html>
+    </ClerkProvider>
   );
 }
