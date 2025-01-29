@@ -6,6 +6,7 @@ import BlogSection from "@/components/BlogSection"
 import Instasec from "@/components/Instasec"
 import { getFeaturedProduct } from "@/sanity/queries/FetchProduct";
 
+
 export default async function Home() {
   const featuredData = await getFeaturedProduct() || [];
   return (
@@ -20,6 +21,7 @@ export default async function Home() {
       <NewArrivals/>
       <BlogSection/>
       <Instasec/>
+
     </div>
   );
 }
