@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { CardData } from "@/utils/types";
 import { FaHeart } from "react-icons/fa";
@@ -18,9 +18,12 @@ export default function Card({
 }: CardData) {
 
   const { items, addToWishlist, removeFromWishlist } = useWishlist();
-  const [wishlist, setWishlist] = useState(
-    items.some((item) => item.id === _id) // Check if the product is already in the wishlist
-  );
+const [wishlist, setWishlist] = useState<boolean>(false);
+
+  // Sync wishlist state with the context
+  useEffect(() => {
+    setWishlist(items.some((item) => item.id === _id));
+  }, [items, _id]);
   const { addToCart } = useCart();
   const handleAddToCart = () => {
     addToCart({
@@ -61,7 +64,7 @@ export default function Card({
           title={wishlist ? "Remove from Wishlist" : "Add to Wishlist"}
         >
           <FaHeart
-            className={` ${wishlist ? "text-red-500" : "text-slate-300"}`}
+            className={`transition-colors duration-200 ${wishlist ? "text-red-500" : "text-slate-300"}`}
           />
         </button>
       </div>

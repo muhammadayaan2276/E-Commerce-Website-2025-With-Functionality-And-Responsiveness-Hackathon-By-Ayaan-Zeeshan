@@ -7,8 +7,7 @@ import ShortSec from "@/components/ShortSec";
 import { getProductById } from "@/sanity/queries/FetchProduct";
 import { getFeaturedProduct } from "@/sanity/queries/FetchProduct";
 import AddTocartDynamicPage from "@/components/AddToCartDynamicPage";
-import { CartItem } from "@/context/CartContext";
-import { Product } from "@/utils/types";
+
 
 export default async function ProductDetail({
   params,
@@ -18,7 +17,7 @@ export default async function ProductDetail({
   // const data = secData.find((item: SecData) => item.id === params.productid);
 
   const product = await getProductById(params.productid);
-  const featuredData = await getFeaturedProduct() || [];
+  const featuredData = (await getFeaturedProduct()) || [];
 
   console.log(product);
   return (
@@ -32,8 +31,9 @@ export default async function ProductDetail({
             <div className="relative aspect-square w-full max-w-md mx-auto sm:max-w-none">
               <Image
                 src={`${product?.imageUrl}`}
-                alt="Asgaard sofa main view"
+                alt={`${product?.name} view 1`}
                 layout="responsive"
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
                 height={400}
                 width={400}
                 className="object-cover rounded-lg"
@@ -92,7 +92,7 @@ export default async function ProductDetail({
                 Size
               </span>
               <div className="flex gap-2 mt-2">
-                {(product?.sizes as []).map((size) => (
+                {(product?.sizes || []).map((size) => (
                   <button
                     key={size}
                     className="p-2 border rounded-lg flex items-center justify-center text-sm hover:bg-gray-100"
@@ -116,17 +116,18 @@ export default async function ProductDetail({
             </div> */}
 
             {/* Quantity and Add to Cart */}
-            {product &&
-            <AddTocartDynamicPage 
-            product={{
-              id: product._id,
-              name: product.name,
-              image: product.imageUrl,
-              price: product.price,
-              quantity: 1, // Default quantity
-              stock: product.stockLevel || 0, // Ensure stock is handled
-            }}/>
-            }
+            {product && (
+              <AddTocartDynamicPage
+                product={{
+                  id: product._id,
+                  name: product.name,
+                  image: product.imageUrl,
+                  price: product.price,
+                  quantity: 1, // Default quantity
+                  stock: product.stockLevel || 0, // Ensure stock is handled
+                }}
+              />
+            )}
             {/* <div className="flex items-center gap-4">
               <div className="flex items-center border rounded-lg">
                 <button className="px-4 py-2 border-r">-</button>
@@ -155,7 +156,7 @@ export default async function ProductDetail({
               </div>
               <div className="flex justify-between">
                 <span>Tags</span>
-                <span>{product?.tags}</span>
+                <span>{(product?.tags || []).join(', ')}</span>
               </div>
               <div className="flex justify-between">
                 <span>Share</span>
@@ -190,15 +191,10 @@ export default async function ProductDetail({
 
           {/* Description Section */}
           <div className="grid gap-6 mt-6 text-[#9F9F9F] text-[14px] leading-[22px] sm:text-[16px] sm:leading-[26px] md:text-[18px] md:leading-[30px] px-4 sm:px-8 md:px-16 lg:px-24">
-            <p>
-              {product?.description}
-            </p>
+            <p>{product?.description}</p>
           </div>
-
-        
         </div>
       </div>
-      
 
       <ShortSec
         title="More Products"
