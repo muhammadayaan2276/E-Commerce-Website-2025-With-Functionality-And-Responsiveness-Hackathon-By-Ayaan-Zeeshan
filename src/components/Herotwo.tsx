@@ -4,7 +4,7 @@ export default function HeroTwo() {
   return (
     <section className="bg-lightreddish text-black flex justify-center items-center mx-auto px-4 sm:px-6 md:px-16 lg:px-32">
       <div className="flex flex-col md:flex-row justify-around w-full items-center">
-        <div className="h-[505px] ">
+        <div className="h-auto py-5 ">
           <Image
             src={"/squaretable.png"}
             alt="Hero 1"
