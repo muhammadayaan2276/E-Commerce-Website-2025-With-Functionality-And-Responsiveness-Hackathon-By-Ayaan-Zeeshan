@@ -54,7 +54,7 @@ export default function Navbar() {
             Contact
           </Link>
           <div>
-          {role === "superadmin" && (
+          {role === "superadmin" || role === "admin" && (
             <Link
               href="https://admin-panel-furniro.vercel.app/"
               className="text-gray-800 hover:text-black"
@@ -123,7 +123,7 @@ export default function Navbar() {
                   Contact
                 </Link>
                 <div>
-                {role === "superadmin" && (
+                {role === "superadmin" || role === "admin" &&  (
                   <Link
                     href="https://admin-panel-furniro.vercel.app/"
                     className="text-gray-800 hover:text-black"
