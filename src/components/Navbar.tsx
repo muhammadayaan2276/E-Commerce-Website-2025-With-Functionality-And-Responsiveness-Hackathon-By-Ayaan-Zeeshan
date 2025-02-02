@@ -15,9 +15,9 @@ import { UserButton, useUser } from "@clerk/nextjs";
 import SignInButtonComponent from "@/components/auth/loginButoon";
 
 export default function Navbar() {
-  const {isSignedIn } = useUser();
+  const { isSignedIn, user } = useUser();
   const [isScrolled, setIsScrolled] = useState(false);
-
+  const role = user?.publicMetadata?.role;
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 0);
@@ -53,12 +53,20 @@ export default function Navbar() {
           <Link href="/contact" className="text-gray-800 hover:text-black">
             Contact
           </Link>
+          <div>
+          {role === "superadmin" && (
+            <Link
+              href="http://localhost:3001"
+              className="text-gray-800 hover:text-black"
+            >
+              Dashboard
+            </Link>
+          )}
+          </div>
         </nav>
 
         {/* Right: Icons (visible on all devices) */}
         <div className="flex items-center space-x-5">
-          
-
           {/* Search */}
           <SearchCommand />
 
@@ -82,7 +90,7 @@ export default function Navbar() {
 
           {/* Account */}
           {!isSignedIn ? (
-            <SignInButtonComponent  />
+            <SignInButtonComponent />
           ) : (
             <div className="flex justify-center items-center gap-2">
               <UserButton />
@@ -114,6 +122,16 @@ export default function Navbar() {
                 >
                   Contact
                 </Link>
+                <div>
+                {role === "superadmin" && (
+                  <Link
+                    href="https://admin-panel-furniro.vercel.app/"
+                    className="text-gray-800 hover:text-black"
+                  >
+                    Dashboard
+                  </Link>
+                )}
+                </div>
               </nav>
             </SheetContent>
           </Sheet>

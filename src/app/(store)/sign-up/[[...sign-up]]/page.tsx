@@ -10,7 +10,7 @@ export default function Page() {
   }, []);
 
   return (
-    <div className="flex justify-center items-center md:mb-36 mb-5">
+    <div className="flex justify-center items-center min-h-screen">
       <SignUp />
     </div>
   );
