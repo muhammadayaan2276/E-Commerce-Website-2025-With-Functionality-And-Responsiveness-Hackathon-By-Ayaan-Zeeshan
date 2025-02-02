@@ -56,7 +56,7 @@ export default function Navbar() {
           <div>
           {role === "superadmin" && (
             <Link
-              href="http://localhost:3001"
+              href="https://admin-panel-furniro.vercel.app/"
               className="text-gray-800 hover:text-black"
             >
               Dashboard
